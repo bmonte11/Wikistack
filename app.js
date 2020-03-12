@@ -2,19 +2,22 @@ const express = require("express");
 const morgan = require('morgan');
 const app = express()
 const { db, Page, User } = require('./models')
-const wikiRouter = require('./routes/wiki');
-const userRouter = require('./routes/user');
+const path = require('path')
+const layout = require('./views/layout');
 
-app.use('/wiki', wikiRouter)
+// const wikiRouter = require('./routes/wiki');
+// const userRouter = require('./routes/user');
+
+// app.use('/wiki', wikiRouter)
 
 app.use(morgan('dev'))
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname + "/public")));
 app.use(express.urlencoded({ extended: false }));
 
 
 app.get('/', (req, res, next) =>{
   try{
-    res.send('hello world');
+    res.send(layout('hello world'));
   }
   catch(err){
     next(err)
