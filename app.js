@@ -2,6 +2,10 @@ const express = require("express");
 const morgan = require('morgan');
 const app = express()
 const { db, Page, User } = require('./models')
+const wikiRouter = require('./routes/wiki');
+const userRouter = require('./routes/user');
+
+app.use('/wiki', wikiRouter)
 
 app.use(morgan('dev'))
 app.use(express.static(__dirname + "/public"));
